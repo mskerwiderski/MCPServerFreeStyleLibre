@@ -1,0 +1,44 @@
+[project]
+name = "libre-mcp"
+version = "0.12.0"
+description = "Read-only MCP server for FreeStyle Libre glucose via LibreLinkUp, with its own history"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+readme = "README.md"
+dependencies = [
+    # Upper bound is deliberate. The server image is rebuilt on every deploy,
+    # so an open constraint means the next deploy installs whatever is newest;
+    # mcp 2.0 already removed mcp.server.fastmcp once.
+    "mcp>=2.1,<3",
+    "httpx>=0.27",
+    "starlette>=0.40",
+    "uvicorn[standard]>=0.32",
+    # encryption at rest for the LibreLinkUp login
+    # the LibreView CSV upload (multipart form)
+    "python-multipart>=0.0.9",
+    # time zones in the slim image, which has no system zoneinfo
+    "tzdata>=2024.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+]
+
+[project.scripts]
+libre-mcp = "libre_mcp.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["libre_mcp*"]
+
+[tool.setuptools.package-data]
+# msk-ui (static/ui/ is a copy of the author's design system),
+# app.css and the logo.
+libre_mcp = ["static/*", "static/ui/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

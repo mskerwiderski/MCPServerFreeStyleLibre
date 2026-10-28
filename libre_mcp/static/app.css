@@ -1,0 +1,52 @@
+/* Libre MCP - app-specific styles on top of msk-ui (static/ui/, a copy of
+   the author's design system). Tokens only: no colour values here. */
+
+/* the connector address, ready to copy */
+.connector-url { width:100%; font-family:var(--mono); font-size:.9rem; resize:none; }
+
+/* LibreLinkUp connection state on the account page */
+.status-line { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin:.2rem 0 .9rem; }
+
+/* one control and its button in a row: history period, CSV upload */
+.form-inline { display:flex; align-items:flex-end; gap:.6rem; flex-wrap:wrap; margin:.6rem 0; }
+.form-inline label { font-size:.82rem; color:var(--muted); font-weight:500; }
+.form-inline select { width:auto; min-width:9rem; }
+.form-inline input[type=file] { width:auto; flex:1 1 14rem; }
+
+/* the three setup steps on the connect page */
+.setup { margin:.4rem 0 1.1rem; padding-left:1.3rem; }
+.setup li { margin:.35rem 0; }
+
+/* "sign in as" (MyAuth): clearly visible above every page, as in MyAuth.
+   It takes the sticky top; the header scrolls away under it. */
+.imp-banner { position:sticky; top:0; z-index:101; display:flex; align-items:center;
+  justify-content:center; gap:.75rem; flex-wrap:wrap; padding:.55rem 1rem;
+  background:linear-gradient(var(--warn-weak), var(--warn-weak)), var(--bg);
+  border-bottom:2px solid var(--warn); color:var(--fg); font-weight:600; }
+.imp-banner + header { position:static; }
+
+/* "Statistics": period picker, a few figures, then the inline SVG chart (web._chart) */
+.kpis { display:grid; grid-template-columns:repeat(auto-fit, minmax(8.5rem, 1fr)); gap:.5rem; margin:.2rem 0 .8rem; }
+.kpi { display:flex; flex-direction:column; gap:.1rem; padding:.5rem .65rem; border-radius:var(--r-sm);
+  background:var(--line-2); border:1px solid var(--line); }
+.kpi b { font-size:1.05rem; }
+.g24 { width:100%; height:auto; display:block; }
+.g24 .g-band { fill:var(--ok-weak); }
+.g24 .g-range { fill:var(--accent-weak); }
+.g24 .g-grid { stroke:var(--line); stroke-dasharray:3 3; }
+.g24 .g-line { fill:none; stroke:var(--accent); stroke-width:2; stroke-linejoin:round; }
+.g24 .g-dot { fill:var(--accent); }
+.g24 .g-lab { fill:var(--muted); font-size:10px; }
+.g24 .g-sensor { stroke:var(--muted); stroke-width:1; stroke-dasharray:1 3; }
+/* sensor details */
+table.kv td { padding:.3rem .6rem .3rem 0; vertical-align:top; }
+table.kv td:first-child { white-space:nowrap; }
+/* every sensor, newest first (web._sensor_history) */
+table.sensors td, table.sensors th { padding:.45rem .65rem; white-space:nowrap; }
+.g24 .g-live { fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:4 3; }
+.g24 .g-live-dot { fill:var(--accent); }
+/* "Updated 15:12 · refreshes every minute" above the cards */
+.live-note { margin:-.4rem 0 .8rem; }
+/* period and unit side by side above the figures */
+.pickers { display:flex; gap:0 1.2rem; flex-wrap:wrap; align-items:flex-end; }
+.pickers .form-inline { margin:.2rem 0 .6rem; }

@@ -1,0 +1,16 @@
+# The hosted server in a container. Settings come from .env (see .env.example
+# and docs/hosted.md). There is no host port: the container sits behind your
+# reverse proxy and next to MyAuth. Put both in one Docker network with a
+# docker-compose.override.yml (example in docs/hosted.md).
+services:
+  mcp-libre:
+    build: .
+    image: mcp-libre:latest
+    container_name: mcp-libre
+    restart: unless-stopped
+    env_file: ./.env
+    volumes:
+      - mcp_libre_data:/data
+
+volumes:
+  mcp_libre_data:

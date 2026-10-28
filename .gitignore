@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+.env
+# LibreView exports are health data: never in the repository
+*.csv
+# Instance-specific compose settings stay with the operator
+docker-compose.override.yml
