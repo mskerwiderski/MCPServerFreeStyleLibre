@@ -249,3 +249,15 @@ def test_account_lists_every_sensor_and_marks_the_changes(anja, connected, fake_
     assert page.count('class="g-sensor"') == 2 and ">#2</text>" in page
     assert "Dotted vertical lines mark a new sensor" in page
     assert 'class="g-sensor"' not in anja.get("/account?period=24h").text   # no change
+
+
+def test_an_unexpected_myauth_answer_fails_closed(client, user_id, monkeypatch):
+    """Since access.web: anything but 200/401/403 from MyAuth is "sign-in
+    unavailable", not a redirect to the sign-in page."""
+    async def broken(cookie):
+        return 500, {}
+    monkeypatch.setattr(myauth, "_fetch_session", broken)
+    myauth.clear_cache()
+    client.cookies.set("sso_session", "anja-cookie")
+    r = client.get("/account", follow_redirects=False)
+    assert r.status_code == 503 and "Sign-in unavailable" in r.text

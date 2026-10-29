@@ -19,7 +19,8 @@ libre_mcp/
   csv_import.py   LibreView export (hosted account page)
   times.py        the user's time zone, day boundaries, time formatting
   internal.py     /internal/readings and /internal/gmi for MyAuth
-  web.py          account page, page shell, addresses, signed_in
+  web.py          account page, page shell, signed_in (on access.web;
+                  addresses come from mcp_oauth.addresses)
   oauth.py        thin layer over mcp_oauth: consent and error page
   users.py        local side of a MyAuth user, per-user settings
   db.py           SQLite schema and migrations
@@ -205,10 +206,12 @@ else).
 
 - `access/` - MyAuth client: sessions, access checks, the LibreLinkUp session
   and connection state. `__init__.py` calls
-  `myauth.configure(app="mcp-libre", platform="LibreLinkUp")`.
+  `myauth.configure(app="mcp-libre", platform="LibreLinkUp")`. `access.web` is the browser
+  sign-in core and the cross-site check that `web.signed_in` uses.
 - `librelinkup/` - the LibreLinkUp client (sign-in, patients, graph), shared
   with MyAuth, which signs in with it.
-- `mcp_oauth/` - the shared OAuth 2.1 authorization server (see OAuth above).
+- `mcp_oauth/` - the shared OAuth 2.1 authorization server (see OAuth above)
+  and its addresses (`mcp_oauth.addresses`: PUBLIC_URL, MCP_URL, UI_URL).
 
 `static/ui/` is likewise a copy of **msk-ui**, the design system of the
 author's web apps; app styles go into `static/app.css`, never into the copy.
